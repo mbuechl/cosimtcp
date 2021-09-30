@@ -45,9 +45,8 @@ class cosimtcp:
         return msgRcvd
 
     def send_data(self, name, data, offset=0):
-        data_str = np.array2string(data.astype(int))
-        data_str = data_str[1:len(data_str)-1]  # remove brackets
-        data_str = data_str.replace("\n", "")   # remove end lines from string
+        data_str_list = [f"{x} " for x in data.astype(int)]
+        data_str = "".join(data_str_list)
         message = "set " + name + " " + str(offset) + " " + data_str
         msgRcvd = self.send_recv_str(message)
         return msgRcvd
